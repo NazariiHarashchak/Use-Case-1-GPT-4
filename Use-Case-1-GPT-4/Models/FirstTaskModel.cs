@@ -2,9 +2,9 @@
 {
     public class FirstTaskModel
     {
-        public string? Field1 { get; set; }
-        public string? Field2 { get; set; }
-        public int? Field3 { get; set; }
-        public int? Field4 { get; set; }
+        public string? name { get; set; }
+        public string? sortByOption { get; set; }
+        public double? population { get; set; }
+        public int? pagesCount { get; set; }
     }
 }

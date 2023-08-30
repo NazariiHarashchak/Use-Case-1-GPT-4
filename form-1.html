@@ -7,31 +7,57 @@
 </head>
 <body>
 
-    <form action="http://localhost:5167/values/task-1" method="post">
+    <form id="countryForm"  action="http://localhost:5167/values/filter-countries" method="post">
         <!-- String Fields -->
         <div>
-            <label for="field1">String 1:</label>
-            <input type="text" id="field1" name="field1">
+            <label for="name">Country Name:</label>
+            <input type="text" id="name" name="name">
         </div>
 
         <div>
-            <label for="field2">String 2:</label>
-            <input type="text" id="field2" name="field2">
+            <label for="sortByOption">Sort By (ascend/descend):</label>
+            <input type="text" id="sortByOption" name="sortByOption">
         </div>
 
         <!-- Number Fields -->
         <div>
-            <label for="field3">Number 1:</label>
-            <input type="number" id="field3" name="field3">
+            <label for="population">Population:</label>
+            <input type="number" id="population" name="population">
         </div>
 
         <div>
-            <label for="field4">Number 2:</label>
-            <input type="number" id="field4" name="field4">
+            <label for="pagesCount">Pages Count:</label>
+            <input type="number" id="pagesCount" name="pagesCount">
         </div>
 
         <input type="submit" value="Send">
     </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('countryForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            let formData = new FormData(e.target);
+
+            try {
+                let response = await fetch(e.target.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    let data = await response.json();
+                    document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+                } else {
+                    console.error('API response was not ok.');
+                }
+            } catch (error) {
+                console.error('There was an error with the API call:', error);
+            }
+        });
+    </script>
 
 </body>
 </html>
