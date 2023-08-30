@@ -42,6 +42,27 @@ namespace Use_Case_1_GPT_4.Controllers
             return Ok(filtered);
         }
 
+        [Route("sort-by/name-common")]
+        [HttpGet]
+        public async Task<IActionResult> GetCountriesByPopulation([FromQuery] string sortByOption)
+        {
+            var countries = await this.GetCountries();
+
+            switch (sortByOption.ToLower())
+            {
+                case "ascend":
+                    var sorted = countries
+                        .OrderBy(i => i.name?.common);
+                    return Ok(sorted);
+                case "descend":
+                    var sortedDesc = countries
+                        .OrderByDescending(i => i.name?.common);
+                    return Ok(sortedDesc);
+                default:
+                    throw new Exception("Incorrect value provided!");
+            }
+        }
+
         private async Task<List<Country>> GetCountries()
         {
             var response = await httpClient.GetAsync("https://restcountries.com/v3.1/all");
