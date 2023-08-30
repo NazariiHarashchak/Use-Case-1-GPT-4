@@ -7,6 +7,7 @@ namespace Use_Case_1_GPT_4
 {
     public class DataProccessor
     {
+        private static string publicUrl = @"https://restcountries.com/v3.1/all";
         public IEnumerable<Country> ProccessDate(FirstTaskModel model, IEnumerable<Country> data)
         {
             return GetPagination(model.pagesCount ?? 1,
@@ -19,7 +20,7 @@ namespace Use_Case_1_GPT_4
         {
             var filtered = data
                 .Where(i => (i.name?.common ?? "").ToLower().Contains(name.ToLower())
-                        || (i.name?.common ?? "").ToLower().Contains(name.ToLower()));
+                        || (i.name?.official ?? "").ToLower().Contains(name.ToLower()));
 
             return filtered;
         }
@@ -46,7 +47,7 @@ namespace Use_Case_1_GPT_4
                         .OrderByDescending(i => i.name?.common);
                     return sortedDesc;
                 default:
-                    throw new Exception("Incorrect value provided!");
+                    return new List<Country>();
             }
         }
 
@@ -57,7 +58,7 @@ namespace Use_Case_1_GPT_4
 
         public async Task<IEnumerable<Country>> GetCountries(HttpClient httpClient)
         {
-            var response = await httpClient.GetAsync("https://restcountries.com/v3.1/all");
+            var response = await httpClient.GetAsync(publicUrl);
 
             if (response.IsSuccessStatusCode)
             {
