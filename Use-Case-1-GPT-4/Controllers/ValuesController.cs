@@ -18,6 +18,7 @@ namespace Use_Case_1_GPT_4.Controllers
             return Ok(true);
         }
 
+        [Route("by-name")]
         [HttpGet]
         public async Task<IActionResult> GetCountryByName([FromQuery]string name)
         {
