@@ -28,7 +28,7 @@ namespace Use_Case_1_GPT_4
         {
             var filtered = data
                 .Where(i => i.population != null
-                        && i.population <= population * 100000);
+                        && i.population <= population * 1000000);
 
             return filtered;
         }
