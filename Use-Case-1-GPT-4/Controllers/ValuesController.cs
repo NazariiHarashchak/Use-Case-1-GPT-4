@@ -15,15 +15,34 @@ namespace Use_Case_1_GPT_4.Controllers
         [HttpPost]
         public async Task<IActionResult> ReceiveValues([FromForm] FirstTaskModel model)
         {
+            return Ok(true);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCountryByName([FromQuery]string name)
+        {
+            var countries = await this.GetCountries();
+            var filtered = countries
+                .Where(i => i.name.common.ToLower().Contains(name.ToLower())
+                        || i.name.official.ToLower().Contains(name.ToLower()));
+
+            return Ok(filtered);
+        }
+
+        private async Task<List<Country>> GetCountries()
+        {
             var response = await httpClient.GetAsync("https://restcountries.com/v3.1/all");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var countries = JsonSerializer.Deserialize<List<object>>(content);
-                Console.WriteLine(content);
+                var countries = JsonSerializer.Deserialize<List<Country>>(content);
+                return countries;
             }
-            return Ok(true);
+            else
+            {
+                return new List<Country>();
+            }
         }
     }
 }
