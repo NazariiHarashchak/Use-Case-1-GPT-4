@@ -44,7 +44,7 @@ namespace Use_Case_1_GPT_4.Controllers
 
         [Route("sort-by/name-common")]
         [HttpGet]
-        public async Task<IActionResult> GetCountriesByPopulation([FromQuery] string sortByOption)
+        public async Task<IActionResult> GetSortedByName([FromQuery] string sortByOption)
         {
             var countries = await this.GetCountries();
 
@@ -61,6 +61,15 @@ namespace Use_Case_1_GPT_4.Controllers
                 default:
                     throw new Exception("Incorrect value provided!");
             }
+        }
+
+        [Route("pagination")]
+        [HttpGet]
+        public async Task<IActionResult> GetPagination([FromQuery] int pagesCount)
+        {
+            var countries = await this.GetCountries();
+
+            return Ok(countries.Take(pagesCount));
         }
 
         private async Task<List<Country>> GetCountries()
