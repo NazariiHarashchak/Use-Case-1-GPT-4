@@ -18,8 +18,8 @@ namespace Use_Case_1_GPT_4
         public IEnumerable<Country> GetCountryByName(string name, IEnumerable<Country> data)
         {
             var filtered = data
-                .Where(i => i.name.common.ToLower().Contains(name.ToLower())
-                        || i.name.official.ToLower().Contains(name.ToLower()));
+                .Where(i => (i.name?.common ?? "").ToLower().Contains(name.ToLower())
+                        || (i.name?.common ?? "").ToLower().Contains(name.ToLower()));
 
             return filtered;
         }
@@ -63,7 +63,7 @@ namespace Use_Case_1_GPT_4
             {
                 var content = await response.Content.ReadAsStringAsync();
                 var countires = JsonSerializer.Deserialize<IEnumerable<Country>>(content);
-                return countires;
+                return countires ?? new List<Country>();
             }
             else
             {

@@ -11,23 +11,23 @@
         public bool? independent { get; set; }
         public string? status { get; set; }
         public bool? unMember { get; set; }
-        public Dictionary<string?, Currency>? currencies { get; set; }
+        public Dictionary<string, Currency>? currencies { get; set; }
         public Idd? idd { get; set; }
         public List<string?>? capital { get; set; }
         public List<string?>? altSpellings { get; set; }
         public string? region { get; set; }
         public string? subregion { get; set; }
-        public Dictionary<string?, string?>? languages { get; set; }
-        public Dictionary<string?, Translation>? translations { get; set; }
+        public Dictionary<string, string>? languages { get; set; }
+        public Dictionary<string, Translation>? translations { get; set; }
         public List<double>? latlng { get; set; }
         public bool? landlocked { get; set; }
-        public List<string?> borders { get; set; }
+        public List<string?>? borders { get; set; }
         public double? area { get; set; }
-        public Dictionary<string?, Demonym>? demonyms { get; set; }
+        public Dictionary<string, Demonym>? demonyms { get; set; }
         public string? flag { get; set; }
         public Maps? maps { get; set; }
         public long? population { get; set; }
-        public Dictionary<string?, double>? gini { get; set; }
+        public Dictionary<string, double>? gini { get; set; }
         public string? fifa { get; set; }
         public Car? car { get; set; }
         public List<string?>? timezones { get; set; }
@@ -43,7 +43,7 @@
     {
         public string? common { get; set; }
         public string? official { get; set; }
-        public Dictionary<string?, NativeName>? nativeName { get; set; }
+        public Dictionary<string, NativeName>? nativeName { get; set; }
     }
 
     public class NativeName
